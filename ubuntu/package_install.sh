@@ -1,6 +1,7 @@
 #!/bin/bash
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+COMMON_DIR="${SCRIPT_DIR}/../common"
 
 source ${SCRIPT_DIR}/utils.sh
 
@@ -84,7 +85,7 @@ nvim_install() {
   sudo update-alternatives --install /usr/bin/vim vim $nvim_bin_path 100
 
   mkdir -p ${HOME}/.config/nvim
-  cp -r ${SCRIPT_DIR}/nvim ${HOME}/.config/
+  cp -r ${COMMON_DIR}/nvim ${HOME}/.config/
   if command -v nvim &> /dev/null; then
     nvim +:MasonUpdate +:qall
   fi
@@ -133,7 +134,7 @@ vte-terminal {\n\
 
 tmux_install() {
   pkg_install tmux
-  cp ${SCRIPT_DIR}/.tmux.conf ${HOME}/.tmux.conf
+  cp ${COMMON_DIR}/.tmux.conf ${HOME}/.tmux.conf
 }
 
 fisher_install() {
@@ -158,13 +159,13 @@ fish_install() {
 
 starship_install() {
   curl -sS https://starship.rs/install.sh | sh -s -- -y > /dev/null 2>&1 || true
-  cp ${SCRIPT_DIR}/starship.toml ${HOME}/.config/starship.toml
+  cp ${COMMON_DIR}/starship.toml ${HOME}/.config/starship.toml
 }
 
 zsh_install() {
   pkg_install zsh
-  cp ${SCRIPT_DIR}/.zshrc ${HOME}/.zshrc
-  cp ${SCRIPT_DIR}/.p10k.zsh ${HOME}/.p10k.zsh
+  cp ${COMMON_DIR}/.zshrc ${HOME}/.zshrc
+  cp ${COMMON_DIR}/.p10k.zsh ${HOME}/.p10k.zsh
   zsh -c "source ~/.zshrc; exit"
   sudo sed s/required/sufficient/g -i /etc/pam.d/chsh
   chsh -s $(which zsh)

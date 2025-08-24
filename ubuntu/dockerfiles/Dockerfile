@@ -30,9 +30,9 @@ ENV HOME=$USER_HOME
 WORKDIR $HOME
 
 RUN sudo apt-get install -y git
-RUN git clone https://www.github.com/asana17/ubuntu-configurations.git
+RUN git clone https://www.github.com/asana17/devpc-configurations.git
 
-RUN ubuntu-configurations/ubuntu_configuration.sh
+RUN devpc-configurations/ubuntu/ubuntu_configuration.sh
 
 RUN cat >> ~/.config/fish/config.fish <<EOF
 if test -f /proc/self/cgroup && grep -q docker /proc/self/cgroup
